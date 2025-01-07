@@ -7,193 +7,837 @@
     <title>Portfolio</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
         }
 
         header {
-            background-color: #0078d4;
+            background: linear-gradient(135deg, #0078d4, #00a2ff, #0078d4);
+            background-size: 200% 200%;
             color: white;
-            padding: 20px 0;
+            padding: 50px 0;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin: 20px 20px 0 20px;
+            position: relative;
+            overflow: hidden;
+            animation: gradientBG 15s ease infinite;
+            border-radius: 25px;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0.1) 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                rgba(255,255,255,0.1) 50%, 
+                rgba(255,255,255,0.1) 75%, 
+                transparent 75%, 
+                transparent);
+            background-size: 30px 30px;
+            animation: headerPattern 3s linear infinite;
+            opacity: 0.3;
+            border-radius: 25px;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes headerPattern {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 30px 30px;
+            }
+        }
+
+        .header-content {
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            display: inline-block;
+            padding: 0 15px;
+        }
+
+        header h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.5);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+
+        header h1:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         header p {
-            margin: 5px 0 0;
-            font-size: 1.2rem;
+            margin: 15px 0 0;
+            font-size: 1.3rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        header a {
+            color: #ffd700;
+            transition: all 0.3s ease;
+        }
+
+        header a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
         }
 
         .container {
             max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 15px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
         section {
-            margin-bottom: 40px;
+            margin-bottom: 50px;
+            animation: fadeIn 0.5s ease-in;
+            padding: 25px;
+            border-radius: 15px;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
         h2 {
             color: #0078d4;
-            border-bottom: 2px solid #0078d4;
+            border-bottom: 3px solid transparent;
+            background: linear-gradient(90deg, #0078d4, #00a2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: inline-block;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            padding-bottom: 5px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #0078d4, #00a2ff);
+            border-radius: 3px;
         }
 
         .project {
-            background: #fff;
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.5));
+            pointer-events: none;
+        }
+
+        .project:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
         }
 
         .project h3 {
-            margin: 0 0 10px;
+            margin: 0 0 15px;
+            color: #1a73e8;
         }
 
-        .project p {
-            margin: 10px 0;
+        .project ul {
+            padding-left: 20px;
         }
 
-        .skills,
-        .education ul {
-            list-style: none;
-            padding: 0;
+        .project li {
+            margin-bottom: 8px;
         }
 
         .skills li,
         .education li {
-            margin-bottom: 10px;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skills li::before,
+        .education li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.5));
+            pointer-events: none;
+        }
+
+        .skills li:hover,
+        .education li:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
         }
 
         footer {
-            background-color: #0078d4;
+            background: linear-gradient(135deg, #0078d4, #00a2ff, #0078d4);
+            background-size: 200% 200%;
             color: white;
             text-align: center;
-            padding: 10px 0;
+            padding: 25px 0;
+            margin: 40px 20px 20px 20px;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            animation: gradientBG 15s ease infinite;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0.1) 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                rgba(255,255,255,0.1) 50%, 
+                rgba(255,255,255,0.1) 75%, 
+                transparent 75%, 
+                transparent);
+            background-size: 30px 30px;
+            animation: headerPattern 3s linear infinite;
+            opacity: 0.3;
+            border-radius: 25px;
         }
 
         footer p {
             margin: 0;
+            position: relative;
+            z-index: 1;
+            font-size: 1.1rem;
+        }
+
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0 5px;
+        }
+
+        footer a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+
+        footer a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ffd700;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        footer a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         a {
-            color: orange;
+            color: #f39c12;
             text-decoration: none;
+            transition: color 0.2s ease;
         }
 
         a:hover {
-            text-decoration: underline;
+            color: #e67e22;
+            text-decoration: none;
+        }
+
+        .about-me {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-me::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.5));
+            pointer-events: none;
+        }
+
+        .about-me:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+        }
+
+        .bento-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 100px auto;
+            padding: 20px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .bento-box {
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            border-radius: 15px;
+            padding: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.8);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .bento-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.5));
+            pointer-events: none;
+        }
+
+        .bento-box:nth-child(1) { 
+            background: linear-gradient(145deg, #2193b0, #6dd5ed); /* Blue gradient */
+        }
+        .bento-box:nth-child(2) { 
+            background: linear-gradient(145deg, #834d9b, #d04ed6); /* Purple gradient */
+        }
+        .bento-box:nth-child(3) { 
+            background: linear-gradient(145deg, #11998e, #38ef7d); /* Green gradient */
+        }
+        .bento-box:nth-child(4) { 
+            background: linear-gradient(145deg, #f2994a, #f2c94c); /* Orange gradient */
+        }
+        .bento-box:nth-child(5) { 
+            background: linear-gradient(145deg, #ee0979, #ff6a00); /* Pink-Orange gradient */
+        }
+        .bento-box:nth-child(6) { 
+            background: linear-gradient(145deg, #00b4db, #0083b0); /* Cyan gradient */
+        }
+
+        .bento-box h3 {
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-weight: 500;
+        }
+
+        .bento-box i {
+            color: white;
+            opacity: 0.95;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .bento-box:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            filter: brightness(1.1);
+        }
+
+        .bento-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(255,255,255,0.1) 0%,
+                rgba(255,255,255,0.2) 50%,
+                rgba(255,255,255,0.1) 100%
+            );
+            pointer-events: none;
+            border-radius: 15px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bento-box:nth-child(1) { animation-delay: 0.1s; }
+        .bento-box:nth-child(2) { animation-delay: 0.2s; }
+        .bento-box:nth-child(3) { animation-delay: 0.3s; }
+        .bento-box:nth-child(4) { animation-delay: 0.4s; }
+        .bento-box:nth-child(5) { animation-delay: 0.5s; }
+        .bento-box:nth-child(6) { animation-delay: 0.6s; }
+
+        .main-content {
+            display: none;
+        }
+
+        .menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .menu.show {
+            display: flex;
+        }
+
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            transform: rotate(0deg);
+            transition: .5s ease-in-out;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-icon span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: #0078d4;
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .menu-icon span:nth-child(1) {
+            top: 0px;
+        }
+
+        .menu-icon span:nth-child(2) {
+            top: 8px;
+        }
+
+        .menu-icon.open span:nth-child(1) {
+            top: 8px;
+            transform: rotate(135deg);
+        }
+
+        .menu-icon.open span:nth-child(2) {
+            top: 8px;
+            transform: rotate(-135deg);
+        }
+
+        .menu-items {
+            position: fixed;
+            top: 70px;
+            right: -200px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            width: 150px;
+        }
+
+        .menu-items.show {
+            right: 20px;
+        }
+
+        .menu-items ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-items li {
+            margin: 10px 0;
+        }
+
+        .menu-items a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            display: block;
+            padding: 5px 10px;
+        }
+
+        .menu-items a:hover {
+            color: #0078d4;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .show {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .back-button.show {
+            display: flex;
+        }
+
+        .project a i {
+            margin-left: 5px;
+            transition: transform 0.2s ease;
+        }
+
+        .project a:hover i {
+            transform: translateX(5px);
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MCA1MCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDA3OGQ0O3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMGEyZmY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHJ4PSIxMCIgZmlsbD0id2hpdGUiLz4KICA8dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0idXJsKCNncmFkKSIgc3R5bGU9ImZvbnQtZmFtaWx5OiBBcmlhbDsgZm9udC13ZWlnaHQ6IGJvbGQ7IGZvbnQtc2l6ZTogMzJweDsiPlM8L3RleHQ+Cjwvc3ZnPg==">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF8WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNy4yLWMwMDAgNzkuMWI2NWE3OWI0LCAyMDIyLzA2LzEzLTIyOjAxOjAxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjQuMCAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMjQtMDMtMjBUMTU6NDM6MTMtMDc6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMjQtMDMtMjBUMTU6NDM6MTMtMDc6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDI0LTAzLTIwVDE1OjQzOjEzLTA3OjAwIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjY5ODg3ZDY5LTM4ZTAtNDZhNi1hOWY1LTYxZDRkNzY3NmNhYyIgeG1wTU06RG9jdW1lbnRJRD0iYWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjIyYzFhMGZmLTQ5ZDAtNDM0ZC1h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">
 </head>
 
 <body>
-    <header>
-        <h1>Sai Charith Puligilla</h1>
-        <p>Final Year Computer Science Student | Advanced Learner at Stanford Code in Place | <a href="https://leetcode.com/u/SaiCharithPuligilla/">Leetcode</a></p>
-    </header>
-
-    <div class="container">
-
-        <section>
-            <h2>About Me</h2>
-            <p>I am a highly motivated final-year Computer Science student with a passion for building innovative software solutions. My experience spans Java GUI applications, machine learning models,Data Analytics Dashboards and Python-based projects. As an advanced learner in Stanford's Code in Place, I have honed my problem-solving and technical skills through diverse and impactful projects.</p>
-        </section>
-
-        <section>
-            <h2>Projects</h2>
-
-            <div class="project">
-                <h3>Medication Reminder Application</h3>
-                <p><strong>Description:</strong> A Java GUI application designed to remind users to take their medications on time with user-friendly notifications.</p>
-                <p><strong>Technologies:</strong> Java, Swing, SQLite</p>
-                <p><strong>Key Features:</strong>
-                    <ul>
-                        <li>User-friendly interface for adding and managing medications</li>
-                        <li>Custom notifications for reminders</li>
-                        <li>Local database for storing user data</li>
-                    </ul>
-                </p>
-                <p><a href="https://github.com/Sai-Charith-P/Medication-Reminder-using-JAVA-GUI">GitHub Repository Link</a></p>
-            </div>
-
-            <div class="project">
-                <h3>Diabetes Prediction</h3>
-                <p><strong>Description:</strong> A machine learning project to predict the likelihood of diabetes using healthcare data.</p>
-                <p><strong>Technologies:</strong> Python, Scikit-learn, Pandas, Matplotlib</p>
-                <p><strong>Key Features:</strong>
-                    <ul>
-                        <li>Data preprocessing and feature extraction from healthcare datasets</li>
-                        <li>Logistic Regression, Random Forest, and KNN models with accuracy comparison</li>
-                        <li>Visualized results to aid decision-making</li>
-                    </ul>
-                </p>
-                <p><a href="https://github.com/Sai-Charith-P/Diabetes-Prediction-ML">GitHub Repository Link</a></p>
-            </div>
-
-            <div class="project">
-                <h3>Daily Fitness Check</h3>
-                <p><strong>Description:</strong> A Python-based application created as part of Stanford Code in Place 2024 to help users track their daily fitness goals.</p>
-                <p><strong>Technologies:</strong> Python, Flask, SQLAlchemy, Bootstrap</p>
-                <p><strong>Key Features:</strong>
-                    <ul>
-                        <li>User registration and login system</li>
-                        <li>Tracking daily meals, exercise, water intake, and sleep</li>
-                        <li>Progress analytics and goal reminders</li>
-                    </ul>
-                </p>
-                <p><a href="https://codeinplace.stanford.edu/cip4/certificate/ekfzua">Stanford Certification Link</a></p>
-            </div>
-
-            <div class="project">
-                <h3>Photograph Editing Website</h3>
-                <p><strong>Description:</strong> A web application that offers features like image resizing, brightness adjustment, and searching from existing public images.</p>
-                <p><strong>Technologies:</strong> HTML, CSS, JavaScript</p>
-                <p><strong>Key Features:</strong>
-                    <ul>
-                        <li>Resize and crop images easily</li>
-                        <li>Adjust brightness and contrast</li>
-                        <li>Search and integrate public domain images</li>
-                    </ul>
-                </p>
-                <p><a href="https://github.com/Sai-Charith-P">GitHub Link</a></p>
-            </div>
-
-        </section>
-
-        <section>
-            <h2>Skills</h2>
-            <ul class="skills">
-                <li><strong>Programming Languages:</strong> Python, Java, SQL, HTML, CSS, ReactJS,Sqlite</li>
-                <li><strong>Tools & Frameworks:</strong> Flask, Scikit-learn, SQLAlchemy, Swing</li>
-                <li><strong>Databases:</strong> SQLite, MySQL</li>
-                <li><strong>Other Skills:</strong> Data Visualization, Machine Learning, GUI Design</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>Education</h2>
-            <ul class="education">
-                <li><strong>[SR University]</strong> | Bachelor of Computer Science | Expected Graduation: [May, 2025]</li>
-                <li><strong>Stanford Code in Place</strong> | Advanced Learner | 2024</li>
-            </ul>
-        </section>
-
+    <div class="back-button" onclick="showBentoBoxes()">
+        <i class="fas fa-arrow-left"></i>
     </div>
 
-    <footer>
-        <p>Let's work together on exciting projects! Reach out to me at <a href=mailto:saicharith0503@gmail.com>Mail</a> | <a href="https://www.linkedin.com/in/sai-charith-puligilla/">LinkedIn</a></p>
-    </footer>
+    <nav class="menu" onclick="toggleMenu()">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu-items">
+            <ul>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="bento-container">
+        <div class="bento-box" onclick="showSection('about')">
+            <i class="fas fa-user"></i>
+            <h3>About Me</h3>
+        </div>
+        <div class="bento-box" onclick="showSection('projects')">
+            <i class="fas fa-code"></i>
+            <h3>Projects</h3>
+        </div>
+        <div class="bento-box" onclick="showSection('skills')">
+            <i class="fas fa-cogs"></i>
+            <h3>Skills</h3>
+        </div>
+        <div class="bento-box" onclick="showSection('achievements')">
+            <i class="fas fa-trophy"></i>
+            <h3>Achievements</h3>
+        </div>
+        <div class="bento-box" onclick="window.location.href='mailto:saicharith0503@gmail.com'">
+            <i class="fas fa-envelope"></i>
+            <h3>Contact</h3>
+        </div>
+        <div class="bento-box" onclick="showPortfolio()">
+            <i class="fas fa-laptop-code"></i>
+            <h3>Portfolio</h3>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-content">
+                <h1>Sai Charith Puligilla</h1>
+                <p>Final Year Computer Science Student | Advanced Learner at Stanford Code in Place | <a href="https://leetcode.com/u/SaiCharithPuligilla/">Leetcode</a></p>
+            </div>
+        </header>
+
+        <div class="container">
+
+            <section id="about">
+                <h2>About Me</h2>
+                <div class="about-me">
+                    <p>I am a highly motivated final-year Computer Science student with a passion for building innovative software solutions. My experience spans Java GUI applications, machine learning models, Data Analytics Dashboards and Python-based projects. As an advanced learner in Stanford's Code in Place, I have honed my problem-solving and technical skills through diverse and impactful projects.</p>
+                </div>
+            </section>
+
+            <section id="projects">
+                <h2>Projects</h2>
+
+                <div class="project">
+                    <h3>Medication Reminder Application</h3>
+                    <p><strong>Description:</strong> A Java GUI application designed to remind users to take their medications on time with user-friendly notifications.</p>
+                    <p><strong>Technologies:</strong> Java, JAVA Swings, Oracle SQL (10g)</p>
+                    <p><strong>Key Features:</strong>
+                        <ul>
+                            <li>User-friendly interface for adding and managing medications</li>
+                            <li>Custom notifications for reminders</li>
+                            <li>Local database for storing user data</li>
+                        </ul>
+                    </p>
+                    <p><a href="https://github.com/Sai-Charith-P/Medication-Reminder-using-JAVA-GUI">GitHub Repository Link <i class="fas fa-arrow-right"></i></a></p>
+                </div>
+
+                <div class="project">
+                    <h3>Diabetes Prediction</h3>
+                    <p><strong>Description:</strong> A machine learning project to predict the likelihood of diabetes using Pregancy Women data.</p>
+                    <p><strong>Technologies:</strong> Python, Scikit-learn</p>
+                    <p><strong>Key Features:</strong>
+                        <ul>
+                            <li>Data preprocessing and feature extraction from healthcare datasets</li>
+                            <li>Logistic Regression, Decision Tree,SVM and KNN models with accuracy comparison</li>
+                            <li>Visualized results to aid decision-making</li>
+                        </ul>
+                    </p>
+                    <p><a href="https://github.com/Sai-Charith-P/Diabetes-Prediction-ML">GitHub Repository Link <i class="fas fa-arrow-right"></i></a></p>
+                </div>
+
+                <div class="project">
+                    <h3>Daily Fitness Check</h3>
+                    <p><strong>Description:</strong> A Python-based application created as part of Stanford Code in Place 2024 to help users track their daily fitness goals.</p>
+                    <p><strong>Technologies:</strong> Python, SQL, Bootstrap</p>
+                    <p><strong>Key Features:</strong>
+                        <ul>
+                            <li>User registration and login system</li>
+                            <li>Tracking daily meals, exercise, water intake, and sleep</li>
+                            <li>Progress analytics and goal reminders</li>
+                        </ul>
+                    </p>
+                    <p><a href="https://codeinplace.stanford.edu/cip4/certificate/ekfzua">Stanford Certification Link <i class="fas fa-arrow-right"></i></a></p>
+                </div>
+
+                <div class="project">
+                    <h3>Photograph Editing Website</h3>
+                    <p><strong>Description:</strong> A web application that offers features like image resizing, brightness adjustment, and searching from existing public images.</p>
+                    <p><strong>Technologies:</strong> HTML, CSS, JavaScript</p>
+                    <p><strong>Key Features:</strong>
+                        <ul>
+                            <li>Resize and crop images easily</li>
+                            <li>Adjust brightness and contrast</li>
+                            <li>Search and integrate public domain images</li>
+                        </ul>
+                    </p>
+                    <p><a href="https://github.com/Sai-Charith-P/DataAnalytics-Dashboard-for-Impact-of-News-on-People">GitHub Repository Link <i class="fas fa-arrow-right"></i></a></p>
+                </div>
+
+            </section>
+
+            <section id="skills">
+                <h2>Skills</h2>
+                <ul class="skills">
+                    <li><strong>Programming Languages:</strong>  Python, Java, SQL, HTML, CSS, JavaScript</li>
+                    <li><strong>Tools & Frameworks:</strong> Bootstrap, Tailwind CSS,Scikit-learn</li>
+                    <li><strong>Databases:</strong>  Oracle SQL, MySQL</li>
+                    <li><strong>Other Skills:</strong>  Data Visualization, Machine Learning, GUI Design</li>
+                </ul>
+            </section>
+
+            <section id="achievements">
+                <h2>Achievements</h2>
+                <ul class="education">
+                    <li><strong>Stanford Code in Place</strong> | Advanced Learner | 2024</li>
+                    <li><strong>SR University</strong> | Bachelor of Computer Science | Expected Graduation: May, 2025</li>
+                    <li><strong>Coding Challenges</strong> | Active participant on coding platforms and challenges</li>
+                    <li><strong>Technical Projects</strong> | Successfully completed 2 major projects with real-world applications</li>
+                </ul>
+            </section>
+
+        </div>
+
+        <footer>
+            <p>Let's work together on exciting projects! Reach out to me at <a href=mailto:saicharith0503@gmail.com>Mail</a> | <a href="https://www.linkedin.com/in/sai-charith-puligilla/">LinkedIn</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.menu-items').classList.toggle('show');
+            document.querySelector('.menu-icon').classList.toggle('open');
+        }
+
+        function showSection(sectionId) {
+            document.querySelector('.bento-container').style.display = 'none';
+            document.querySelector('.main-content').classList.add('show');
+            document.querySelector('.back-button').classList.add('show');
+            document.querySelector('.menu').classList.add('show');
+            
+            setTimeout(() => {
+                document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        function showPortfolio() {
+            document.querySelector('.bento-container').style.display = 'none';
+            document.querySelector('.main-content').classList.add('show');
+            document.querySelector('.back-button').classList.add('show');
+            document.querySelector('.menu').classList.add('show');
+        }
+
+        function showBentoBoxes() {
+            document.querySelector('.bento-container').style.display = 'grid';
+            document.querySelector('.main-content').classList.remove('show');
+            document.querySelector('.back-button').classList.remove('show');
+            document.querySelector('.menu-items').classList.remove('show');
+            document.querySelector('.menu').classList.remove('show');
+            document.querySelector('.menu-icon').classList.remove('open');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.querySelector('.menu');
+            const menuItems = document.querySelector('.menu-items');
+            if (!menu.contains(event.target)) {
+                menuItems.classList.remove('show');
+            }
+        });
+
+        // Update menu link behavior
+        document.querySelectorAll('.menu-items a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionId = this.getAttribute('href').substring(1); // Remove the # from href
+                const section = document.getElementById(sectionId);
+                
+                // Ensure the section is visible first
+                document.querySelector('.bento-container').style.display = 'none';
+                document.querySelector('.main-content').classList.add('show');
+                document.querySelector('.back-button').classList.add('show');
+                document.querySelector('.menu').classList.add('show');
+                
+                // Scroll to the section
+                setTimeout(() => {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+                
+                // Close the menu
+                document.querySelector('.menu-items').classList.remove('show');
+            });
+        });
+    </script>
 </body>
 
 </html>
